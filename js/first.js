@@ -1,27 +1,73 @@
+class Mascota {
+    constructor(nombre, tipo, edad, url_foto, descripcion) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.edad = edad;
+        this.foto = url_foto;
+        this.descripcion = descripcion;
+    }
+}
+
+class Perro extends Mascota {
+    constructor(nombre, edad, url_foto, descripcion) {
+        super(nombre, "Perro" , edad, url_foto,descripcion);
+    }
+}
+
+class Gato extends Mascota {
+    constructor(nombre, edad, url_foto, descripcion) {
+        super(nombre, "Gato", edad, url_foto, descripcion);
+    }
+}
+
+class Conejo extends Mascota {
+    constructor(nombre, edad, url_foto, descripcion) {
+        super(nombre, "Conejo", edad, url_foto,descripcion);
+    }
+}
+
 // Array de mascotas en adopción
 let mascotas = [
-    { nombre: "Rocky", tipo: "Perro", edad: 3, descripcion: "Un perro cariñoso" },
-    { nombre: "Luna", tipo: "Gato", edad: 2, descripcion: "Una gata dulce y tranquila" },
-    { nombre: "adolf", tipo: "Conejo", edad: 1, descripcion: "Un conejo adorable y activo" }
+    new Perro("Rocky", 3, "assets/imgs/perro0.jpg", "Un perro cariñoso"),
+    new Gato("Luna", 2, "assets/imgs/gato0.jpg", "Una gata dulce y tranquila"),
+    new Conejo("adolf", 1, "assets/imgs/conejo0.jpg", "Un conejo adorable y activo")
 ];
 
-//console.log(mascotas.length)
-
-//permite ingresar texto a la lista que se genera en html <li></li>
 const listaMascotas = document.getElementById("listaMascotas");
 
 // Función para generar la lista de mascotas
 function generarListaMascotas() {
-    //listaMascotas.innerHTML = ""; // borra la lista por las dudas
+    // Borra la lista por las dudas
+    listaMascotas.innerHTML = "";
 
-    for (let i = 0; i < mascotas.length; i++) {
-        let mascota = mascotas[i];
+    mascotas.forEach((mascota, indice) => {
         const elementoLista = document.createElement("li");
-        elementoLista.textContent = `${mascota.nombre} (${mascota.tipo})`;
-        elementoLista.onclick = () => seleccionarMascota(i);
+        elementoLista.className = "list-group-item";
+        
+        // Crear la imagen de la mascota
+        const imagenMascota = document.createElement("img");
+        imagenMascota.src = mascota.foto;
+        imagenMascota.className = "img-fluid m-4";
+        imagenMascota.alt = `${mascota.nombre}`;
+        imagenMascota.style.width = "150px";
+        imagenMascota.style.borderRadius = "20%";
+        
+        // Crear el contenido de texto con el nombre y tipo de mascota
+        const contenidoTexto = document.createElement("span");
+        contenidoTexto.textContent = `${mascota.nombre} (${mascota.tipo})`;
+        
+        // Agregar la imagen y el contenido de texto al elemento de la lista
+        elementoLista.appendChild(imagenMascota);
+        elementoLista.appendChild(contenidoTexto);
+        
+        // Manejar el evento click para seleccionar la mascota
+        elementoLista.onclick = () => seleccionarMascota(indice);
+        
+        // Agregar el elemento de lista a la lista de mascotas
         listaMascotas.appendChild(elementoLista);
-    }
+    });
 }
+
 
 // seleccionar una mascota
 function seleccionarMascota(indice) {
