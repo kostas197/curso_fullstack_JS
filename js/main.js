@@ -1,5 +1,15 @@
 function app(){
-
+	//code for debug my little app on android webbrowser (developer-tools).
+	(function() {
+		var script = document.createElement('script');
+		script.src = 'https://cdn.jsdelivr.net/npm/eruda';
+		document.body.appendChild(script);
+		script.onload = function() {
+			eruda.init();
+		};
+	})();
+    //fin codigo developer tools
+	
     let lista_gatos = [];
     let lista_perros = [];
     class Mascota {
@@ -25,27 +35,29 @@ function app(){
     }
 
 
-  gimeSomePets("cats")
+  lista_gatos = gimeSomePets("cats")
   .then(cats => {
     //console.log(cats[0].url)
     cats.forEach(cat => {
         lista_gatos.push(new Gato(cat.id,cat.url))
     })
     console.log(lista_gatos);
+    return lista_gatos;
   })
   .catch(error => console.error(error));
   
-  gimeSomePets("dogs")
+  lista_perros = gimeSomePets("dogs")
   .then(dogs => {
     //console.log(cats[0].url)
     dogs.forEach(dog => {
         lista_perros.push(new Perro(dog.id,dog.url))
     })
     console.log(lista_perros);
+    return lista_perros;
   })
   .catch(error => console.error(error));
 
-  
+generarListaMascotas(lista_gatos);
 }
 
 //función - promesa para hacer fetch de datos desde las apis.
@@ -65,11 +77,11 @@ async function gimeSomePets(select_pets) {
     } catch (err) {
       console.error(err);
     }
-  }
+}
 
 
 /*La api no me da ubicaciones por lo que vamos a generar ubicaciones random de los 20 pets
-sobre Buenos Aires. Arista en Congreso hacia el norte  y/o este.
+sobre Buenos Aires. Arista en Congreso hacia el norte y este.
 -34.60980096248984, -58.39190765569035.
 */
 function randomAddressForPets(LattitudOLonguitud){
@@ -89,36 +101,36 @@ function randomAddressForPets(LattitudOLonguitud){
 
 
 
-const listaMascotas = document.getElementById("listaMascotas");
+//const listaMascotas = document.getElementById("listaMascotas");
 
-// Función para generar la lista de mascotas
-function generarListaMascotas() {
+function generarListaMascotas(mascotas) {
     // Borra la lista por las dudas
     listaMascotas.innerHTML = "";
 
+	console.log(mascotas);
     mascotas.forEach((mascota, indice) => {
         const elementoLista = document.createElement("li");
         elementoLista.className = "list-group-item";
-        
+
         // Crear la imagen de la mascota
         const imagenMascota = document.createElement("img");
-        imagenMascota.src = mascota.foto;
+        imagenMascota.src = mascota.url_foto;
         imagenMascota.className = "img-fluid m-4";
         imagenMascota.alt = `${mascota.nombre}`;
         imagenMascota.style.width = "150px";
         imagenMascota.style.borderRadius = "20%";
-        
+
         // Crear el contenido de texto con el nombre y tipo de mascota
         const contenidoTexto = document.createElement("span");
         contenidoTexto.textContent = `${mascota.nombre} (${mascota.tipo})`;
-        
+
         // Agregar la imagen y el contenido de texto al elemento de la lista
         elementoLista.appendChild(imagenMascota);
         elementoLista.appendChild(contenidoTexto);
-        
+
         // Manejar el evento click para seleccionar la mascota
-        elementoLista.onclick = () => seleccionarMascota(indice);
-        
+        elementoLista.onclick = () => seleccionarMascota(indice, mascotas);
+
         // Agregar el elemento de lista a la lista de mascotas
         listaMascotas.appendChild(elementoLista);
     });
