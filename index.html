@@ -4,36 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>seunda entrega, curso JS. app adopcion mascota</title>
+    <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header class="justify-content-center container mt-4 p-1 text-center align-items-center">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="assets/imgs/logo.png" alt="Bootstrap" width="35" height="25">
+              </a>          
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="checkout.html">CheckoutMisPatas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="gimeMorePets()">GimeMorePets</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="justify-content-center container mt-4 p-1 text-center align-items-center">
         <div class="row">
-            <div class="col">
                 <h1>Adopta mis patas</h1>
             </div>
-        </div>
         <div class="row">
-            <div class="col">
                 <p>Esta app está diseñada para adoptar a tu próxima mascota </p>
             </div>
-        </div>
-    </header>
+    </div>
     
 
     <main>
         <div class="container justify-content-center mt-4 p-3 text-center align-items-center">
-            <div class="row">
-                <p>Elige una mascota nuestra lista!:</p>
+            <div class="row mx-12">
+                <p>Elige una mascota de nuestra lista!:</p>
             </div>
-            <div class="row">
-                <ul id="listaMascotas"></ul>
+            <div class="row mx-6" id="map">
+            </div>
+            <div class="row mx-6">
+                <ul class="container" id="listaMascotas"></ul>
             </div>
         </div>
     </main>
 
-    <script src="js/first.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- scripts and librarys -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script defer src="js/pets.js"></script>
+    <script defer src="js/map.js"></script>
+    <script defer src="js/main.js"></script>
 </body>
 </html>
