@@ -34,7 +34,6 @@ async function gimeMorePets(){
         perro.lat = randomAddressForPets("lat");
         perro.edad = (Math.random() * 8) +2;
         perro.tipo = "perro"
-        //L.marker([perro.lat, perro.lon], {icon: perroIcon}).bindPopup(perro.id).addTo(markers);
     });
     //ploteas pets
 
