@@ -19,12 +19,17 @@ async function app(){
     }
 
     if(localStorage.getItem('lista_mascotas')){
-        let listaMascotas = localStorage.getItem('lista_mascotas');
-        generarListaMascotas(JSON.parse(listaMascotas));
-        console.log("aca")
+        let lista_mascotas = localStorage.getItem('lista_mascotas');
+        lista_mascotas = JSON.parse(lista_mascotas);
+        generarListaMascotas(lista_mascotas);
+        createMap(1,lista_mascotas);
+        console.log("old list")
     }
     else {
-        gimeMorePets();
+        let lista_mascotas = gimeMorePets();
+        generarListaMascotas(lista_mascotas);
+        createMap(1,lista_mascotas);
+        console.log("new list")
     }
 }
 
@@ -65,6 +70,8 @@ function generarListaMascotas(mascotas) {
 
         // Agregar el elemento de lista a la lista de mascotas
         listaMascotas.appendChild(elementoLista);
+        
+        
     });
 }
 

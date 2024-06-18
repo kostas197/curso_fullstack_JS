@@ -27,23 +27,22 @@ async function gimeMorePets(){
         gato.lat = randomAddressForPets("lat");
         gato.edad = (Math.random() * 8) +2;
         gato.tipo = "gato"
-        //L.marker([gato.lat, gato.lon], {icon: gatoIcon}).bindPopup(gato.id).addTo(markers);
     });
     lista_perros.forEach(perro => {
         perro.lon = randomAddressForPets("lon");
         perro.lat = randomAddressForPets("lat");
         perro.edad = (Math.random() * 8) +2;
         perro.tipo = "perro"
-        //L.marker([perro.lat, perro.lon], {icon: perroIcon}).bindPopup(perro.id).addTo(markers);
     });
+    const lista_mascotas = lista_gatos.concat(lista_perros);
+    localStorage.setItem("lista_mascotas",JSON.stringify(lista_mascotas));
+    return lista_mascotas;
     //ploteas pets
 
     // Borra la lista por las dudas
-    listaMascotas.innerHTML = "";
-    generarListaMascotas(lista_gatos);
-    generarListaMascotas(lista_perros);
-    const lista_mascotas = Object.assign(lista_gatos, lista_perros);
-    localStorage.setItem("lista_mascotas",JSON.stringify(lista_mascotas));
+    //listaMascotas.innerHTML = "";
+    // generarListaMascotas(lista_gatos);
+    // generarListaMascotas(lista_perros);
 }
 
 
