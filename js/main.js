@@ -66,7 +66,7 @@ function generarListaMascotas(mascotas) {
         // Agregar el elemento de lista a la lista de mascotas
         listaMascotas.appendChild(elementoLista);
 	    //plot map
-	if(mastoca.tipo === 'perro')
+	if(mascota.tipo === 'perro')
         L.marker([mascota.lat, mascota.lon], {icon: perroIcon}).bindPopup(mascota.id).addTo(map);
 	if(mascota.tipo === 'gato')
         L.marker([mascota.lat, mascota.lon], {icon: gatoIcon}).bindPopup(mascota.id).addTo(map);
