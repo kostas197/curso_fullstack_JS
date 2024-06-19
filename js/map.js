@@ -1,13 +1,13 @@
 function createMap(create,lista_mascotas) {
         // Definir un nuevo icono con una imagen personalizada
         let gatoIcon = L.icon({
-          iconUrl: 'assets/imgs/logo.png', // URL de la imagen del icono
+          iconUrl: 'assets/imgs/gato_logo.png', // URL de la imagen del icono
           iconSize: [38, 38], // Tamaño del icono
           iconAnchor: [19, 38], // Punto del icono que se corresponderá con la ubicación del marcador
           popupAnchor: [0, -38] // Punto desde el cual se abrirá el popup en relación al icono
           });
           let perroIcon = L.icon({
-            iconUrl: 'assets/imgs/logo.png', // URL de la imagen del icono
+            iconUrl: 'assets/imgs/perro_logo.png', // URL de la imagen del icono
             iconSize: [38, 38], // Tamaño del icono
             iconAnchor: [19, 38], // Punto del icono que se corresponderá con la ubicación del marcador
             popupAnchor: [0, -38] // Punto desde el cual se abrirá el popup en relación al icono
@@ -34,8 +34,8 @@ function createMap(create,lista_mascotas) {
     if(lista_mascotas){
       markersLayer.clearLayers();
       lista_mascotas.forEach(mascota => {
-       if(mascota.tipo === "gato")L.marker([mascota.lat, mascota.lon], { icon: perroIcon }).addTo(markersLayer).bindPopup(mascota.id).openPopup();
-      else if(mascota.tipo === "perro")L.marker([mascota.lat, mascota.lon], { icon: gatoIcon }).addTo(markersLayer).bindPopup(mascota.id).openPopup();
+       if(mascota.tipo === "gato")L.marker([mascota.lat, mascota.lon], { icon: gatoIcon }).addTo(markersLayer).bindPopup(mascota.id).openPopup();
+      else if(mascota.tipo === "perro")L.marker([mascota.lat, mascota.lon], { icon: perroIcon }).addTo(markersLayer).bindPopup(mascota.id).openPopup();
       else L.marker([mascota.lat, mascota.lon]).addTo(map).bindPopup(mascota.id).openPopup();
         });
       }
