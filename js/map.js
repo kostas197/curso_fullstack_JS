@@ -12,7 +12,7 @@ function createMap(create,lista_mascotas) {
             iconAnchor: [19, 38], // Punto del icono que se corresponderá con la ubicación del marcador
             popupAnchor: [0, -38] // Punto desde el cual se abrirá el popup en relación al icono
             });
-  if(create){
+  if(create === 1){
     // Replace with your desired map container ID
     const mapContainerId = 'map';
     const map = L.map(mapContainerId).setView([-34.60994, -58.39261], 14);

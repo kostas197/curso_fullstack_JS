@@ -26,13 +26,19 @@ async function app(){
         console.log("old list")
     }
     else {
-        let lista_mascotas = gimeMorePets();
-        generarListaMascotas(lista_mascotas);
-        createMap(1,lista_mascotas);
-        console.log("new list")
+        newPets()
     }
 }
 
+async function newPets(reload){
+    
+    let lista_mascotas = await gimeMorePets();
+    console.log(lista_mascotas);
+    generarListaMascotas(lista_mascotas);
+    if(reload === 1)createMap(0,lista_mascotas);
+    else createMap(1)
+    console.log("new list")
+}
 
 
 
@@ -43,6 +49,7 @@ const listaMascotas = document.getElementById("listaMascotas");
 function generarListaMascotas(mascotas) {
     
     console.log(mascotas);
+    listaMascotas.innerHTML = "";
     mascotas.forEach((mascota, id) => {
         //console.log(mascota);
         const elementoLista = document.createElement("li");
