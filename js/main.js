@@ -36,7 +36,7 @@ async function newPets(reload){
     console.log(lista_mascotas);
     generarListaMascotas(lista_mascotas);
     if(reload === 1)createMap(0,lista_mascotas);
-    else createMap(1)
+    else createMap(1,lista_mascotas)
     console.log("new list")
 }
 
@@ -50,7 +50,7 @@ function generarListaMascotas(mascotas) {
     
     console.log(mascotas);
     listaMascotas.innerHTML = "";
-    mascotas.forEach((mascota, id) => {
+    mascotas.forEach((mascota) => {
         //console.log(mascota);
         const elementoLista = document.createElement("li");
         elementoLista.className = "list-group-item";
@@ -73,7 +73,7 @@ function generarListaMascotas(mascotas) {
         elementoLista.appendChild(contenidoTexto);
 
         // Manejar el evento click para seleccionar la mascota
-        elementoLista.onclick = () => seleccionarMascota(id, mascotas);
+        elementoLista.onclick = () => seleccionarMascota(mascota.id);
 
         // Agregar el elemento de lista a la lista de mascotas
         listaMascotas.appendChild(elementoLista);
@@ -85,26 +85,106 @@ function generarListaMascotas(mascotas) {
 
 // seleccionar una mascota
 function seleccionarMascota(indice) {
-    const mascotaSeleccionada = mascotas[indice];
+    console.log(indice);
+    const mascotaSeleccionada = indice;
 
-    // Mostrar mensaje de confirmación
-    if (confirm(`¿Deseas adoptar a ${mascotaSeleccionada.nombre}?`)) {
-        mostrarMascotaSeleccionada(mascotaSeleccionada);
-    }
+    // Mostrar mensaje de confirmación con SweetAlert
+    Swal.fire({
+        title: '¿Deseas adoptar a esta mascota?',
+        text: `¿Deseas adoptar a ${mascotaSeleccionada}?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, adoptar',
+        cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            solicitarDatosUsuario(mascotaSeleccionada);
+        }
+    });
 }
 
 // Función para mostrar la información de la mascota seleccionada
 function mostrarMascotaSeleccionada(mascota) {
     if (mascota) {
-        console.log("Mascota seleccionada:");
-        console.log(mascota);
+        console.log("Mascota seleccionada: " , mascota);
 
-        // Mostrar información en un cuadro de alerta
-        alert(`¡Felicidades! Has adoptado a ${mascota.nombre}!`);
+        // Mostrar información en un cuadro de alerta con SweetAlert
+        Swal.fire({
+            title: '¡Felicidades!',
+            text: `¡Has adoptado a ${mascota}!`,
+            icon: 'success'
+        });
     } else {
-        alert("No has seleccionado ninguna mascota.");
+        Swal.fire({
+            title: 'Error',
+            text: 'No has seleccionado ninguna mascota.',
+            icon: 'error'
+        });
     }
 }
+
+function solicitarDatosUsuario(mascotaSeleccionada) {
+    Swal.fire({
+        title: 'Ingresa tus datos para retirarme!',
+        html: `
+            <input type="text" id="nombre" class="swal2-input" placeholder="Nombre">
+            <input type="number" id="edad" class="swal2-input" placeholder="Edad">
+            <select id="horario" class="swal2-input">
+                <option value="" disabled selected>Selecciona un horario</option>
+                <option value="mañana">Mañana</option>
+                <option value="tarde">Tarde</option>
+                <option value="noche">Noche</option>
+            </select>
+        `,
+        focusConfirm: false,
+        preConfirm: () => {
+            const nombre = Swal.getPopup().querySelector('#nombre').value;
+            const edad = Swal.getPopup().querySelector('#edad').value;
+            const horario = Swal.getPopup().querySelector('#horario').value;
+            if (!nombre || !edad || !horario) {
+                Swal.showValidationMessage(`Por favor completa todos los campos`);
+            }
+            return { nombre: nombre, edad: edad, horario: horario };
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const datosUsuario = result.value;
+            console.log('Datos del usuario:', datosUsuario);
+            // Guardar los datos + mascota
+            localStorage.setItem('datosUsuarioAdoptante', JSON.stringify(datosUsuario));
+            localStorage.setItem('mascotaSeleccionada', JSON.stringify(mascotaSeleccionada))
+            Swal.fire(
+                'Datos recibidos',
+                `Nombre: ${datosUsuario.nombre}, Edad: ${datosUsuario.edad}, Horario: ${datosUsuario.horario}`,
+                'success'
+            );
+        }
+        mostrarMascotaSeleccionada(mascotaSeleccionada);
+    });
+}
+
+function checkOutMisPatas() {
+    datosUsuario = JSON.parse(localStorage.getItem('datosUsuarioAdoptante'));
+    datosMascota = JSON.parse(localStorage.getItem('mascotaSeleccionada'));
+    if (datosUsuario) {
+        Swal.fire({
+            title: `Tus datos ya fueron enviados, pasa a retirar a ${datosMascota}` ,
+            html: `
+                <p><strong>Nombre:</strong> ${datosUsuario.nombre}</p>
+                <p><strong>Edad:</strong> ${datosUsuario.edad}</p>
+                <p><strong>Horario de Retiro:</strong> ${datosUsuario.horario}</p>
+            `,
+            icon: 'info'
+        });
+    } else {
+        Swal.fire({
+            title: 'Sin Datos',
+            text: 'No hay datos guardados del usuario en el localStorage.',
+            icon: 'error'
+        });
+    }
+}
+
 
 //funcion principal
 app()
