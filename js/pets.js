@@ -19,8 +19,8 @@ async function gimeSomePets(select_pets) {
 
 async function gimeMorePets(){
 
-    lista_gatos = await gimeSomePets("cats");
-    lista_perros = await gimeSomePets("dogs");
+    let lista_gatos = await gimeSomePets("cats");
+    let lista_perros = await gimeSomePets("dogs");
 
     lista_gatos.forEach(gato => {
         gato.lon = randomAddressForPets("lon");

@@ -1,5 +1,5 @@
 async function app(){
-
+/*
     class Mascota {
         constructor(nombre, tipo, url) {
             this.nombre = nombre; // el nombre lo vamos a convertir en un id
@@ -17,6 +17,7 @@ async function app(){
             this.direccion = direccion;
         }
     }
+        */
 
     if(localStorage.getItem('lista_mascotas')){
         let lista_mascotas = localStorage.getItem('lista_mascotas');
@@ -163,6 +164,7 @@ function solicitarDatosUsuario(mascotaSeleccionada) {
     });
 }
 
+//visualizar los datos del adoptante.
 function checkOutMisPatas() {
     datosUsuario = JSON.parse(localStorage.getItem('datosUsuarioAdoptante'));
     datosMascota = JSON.parse(localStorage.getItem('mascotaSeleccionada'));
