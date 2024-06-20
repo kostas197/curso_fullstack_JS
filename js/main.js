@@ -180,8 +180,8 @@ function checkOutMisPatas() {
         });
     } else {
         Swal.fire({
-            title: 'Sin Datos',
-            text: 'No hay datos guardados del usuario en el localStorage.',
+		title: 'Sin Datos :(',
+            text: 'No hay datos guardados en el localstorage. Mira alguna de nuestras mascotas y adopta una!',
             icon: 'error'
         });
     }
